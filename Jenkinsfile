@@ -59,7 +59,7 @@ pipeline {
             archiveArtifacts artifacts: 'reports/*.html', fingerprint: true
         }
         failure {
-            mail to: 'vikas_kaushik@outlook.com',
+            mail to: 'vikaskaushik166@gmail.com',
                  subject: "Jenkins Build Failed: ${env.JOB_NAME}",
                  body: "Check the build logs and reports for details."
         }
