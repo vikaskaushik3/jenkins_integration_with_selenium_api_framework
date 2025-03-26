@@ -20,11 +20,12 @@
 #     yield driver
 #     driver.quit()
 
-
+import tempfile
+import shutil
 import pytest
 from selenium import webdriver
-from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
 
 
 @pytest.fixture(scope="class")
@@ -32,9 +33,15 @@ def browser(request):
     options = webdriver.ChromeOptions()
     options.binary_location = "/usr/bin/google-chrome"
 
+    # Use a fresh temporary directory for each session
+    user_data_dir = tempfile.mkdtemp()
+    options.add_argument(f"--user-data-dir={user_data_dir}")
+
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
     yield driver
-    driver.quit()
 
+    # Cleanup: Close the driver and remove the temporary directory
+    driver.quit()
+    shutil.rmtree(user_data_dir, ignore_errors=True)
