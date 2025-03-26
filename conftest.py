@@ -3,7 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from webdriver_manager.chrome import ChromeDriverManager
 import pytest
 
-
+# fixture for browser driver
 @pytest.fixture(scope="class")
 def browser(request):
     options = webdriver.ChromeOptions()
