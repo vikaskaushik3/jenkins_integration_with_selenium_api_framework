@@ -45,3 +45,4 @@ def browser(request):
     # Cleanup: Close the driver and remove the temporary directory
     driver.quit()
     shutil.rmtree(user_data_dir, ignore_errors=True)
+
