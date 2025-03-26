@@ -8,6 +8,8 @@ import pytest
 def browser(request):
     options = webdriver.ChromeOptions()
     options.binary_location = "/usr/bin/google-chrome"
+
+    options.add_argument("--incognito")
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
     request.cls.driver = driver
