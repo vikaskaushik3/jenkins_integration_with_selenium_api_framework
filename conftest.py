@@ -33,15 +33,8 @@ def browser(request):
     options = webdriver.ChromeOptions()
     options.binary_location = "/usr/bin/google-chrome"
 
-    # Use a fresh temporary directory for each session
-    user_data_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={user_data_dir}")
-
     service = Service(ChromeDriverManager().install())
-    driver = webdriver.Chrome(service=service, options=options)
+    driver = webdriver.Chrome(service=service, options=options)  # Removed --user-data-dir
 
     yield driver
-
-    # Cleanup: Close the driver and remove the temporary directory
     driver.quit()
-    shutil.rmtree(user_data_dir, ignore_errors=True)
