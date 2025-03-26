@@ -28,6 +28,7 @@ pipeline {
         stage('Run UI Tests (Selenium)') {
             steps {
                 sh '''
+                    mkdir -p $TEST_REPORT_DIR
                     source $VENV_DIR/bin/activate
                     pytest tests/ui_tests --html=$TEST_REPORT_DIR/ui_report.html --self-contained-html
                 '''
@@ -37,6 +38,7 @@ pipeline {
         stage('Run API Tests') {
             steps {
                 sh '''
+                    mkdir -p $TEST_REPORT_DIR
                     source $VENV_DIR/bin/activate
                     pytest tests/api_tests --html=$TEST_REPORT_DIR/api_report.html --self-contained-html
                 '''
@@ -46,7 +48,7 @@ pipeline {
         stage('Publish Reports') {
             steps {
                 publishHTML(target: [
-                    reportDir: 'reports',
+                    reportDir: "${TEST_REPORT_DIR}",
                     reportFiles: 'ui_report.html,api_report.html',
                     reportName: 'Test Reports'
                 ])
@@ -56,7 +58,7 @@ pipeline {
 
     post {
         always {
-            archiveArtifacts artifacts: 'reports/*.html', fingerprint: true
+            archiveArtifacts artifacts: "${TEST_REPORT_DIR}/*.html", fingerprint: true
         }
         failure {
             mail to: 'vikaskaushik166@gmail.com',
