@@ -32,11 +32,6 @@ def browser(request):
     options = webdriver.ChromeOptions()
     options.binary_location = "/usr/bin/google-chrome"
 
-    # Use a temporary directory for user data
-    import tempfile
-    user_data_dir = tempfile.mkdtemp()
-    options.add_argument(f"--user-data-dir={user_data_dir}")
-
     service = Service(ChromeDriverManager().install())
     driver = webdriver.Chrome(service=service, options=options)
 
