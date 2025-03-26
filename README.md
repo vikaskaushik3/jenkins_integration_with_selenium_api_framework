@@ -1,4 +1,4 @@
-# Selenium & API Test Automation Framework
+## Selenium & API Test Automation Framework
 
 ## Installation
 ```sh
