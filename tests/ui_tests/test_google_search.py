@@ -9,3 +9,4 @@ class TestGoogleSearch:
         search_box.send_keys("Selenium Python")
         search_box.submit()
         assert "Google Search" in self.driver.title
+
