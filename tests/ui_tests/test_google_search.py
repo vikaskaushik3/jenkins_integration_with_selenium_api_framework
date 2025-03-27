@@ -1,5 +1,6 @@
 import pytest
 
+
 class TestGoogleSearch:
     @pytest.fixture(autouse=True)
     def setup(self, browser):
