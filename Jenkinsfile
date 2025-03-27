@@ -11,13 +11,12 @@ pipeline {
         stage('Checkout Code') {
             steps {
 //                 git branch: 'master', url: 'https://github.com/vikaskaushik3/jenkins_integration_with_selenium_api_framework.git'
-                    checkout ([
-                        $class: 'GitSCM',
-                        branches: [[name: "*/master"]]
-                        userRemoteConfigs: [[
-                            url: 'https://github.com/vikaskaushik3/jenkins_integration_with_selenium_api_framework.git'
-                        ]]
-                    ])
+                    checkout scmGit(
+                        branches: [[name: '*/master']],
+                                    extensions: [],
+                                    userRemoteConfigs: [[url: 'https://github.com/vikaskaushik3/jenkins_integration_with_selenium_api_framework.git'
+                                    ]]
+                        )
             }
         }
 
